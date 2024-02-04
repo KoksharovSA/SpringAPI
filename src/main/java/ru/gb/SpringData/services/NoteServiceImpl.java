@@ -1,6 +1,6 @@
 package ru.gb.SpringData.services;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gb.SpringData.models.Note;
 import ru.gb.SpringData.repositories.NoteRepository;
@@ -12,7 +12,7 @@ import java.util.Optional;
  * Класс сервиса заметок
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class NoteServiceImpl implements INoteService {
     /**
      * Репозиторий заметок

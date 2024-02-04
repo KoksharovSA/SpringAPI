@@ -10,7 +10,6 @@ import ru.gb.SpringData.models.Note;
 import ru.gb.SpringData.services.NoteServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Класс контроллера заметок
