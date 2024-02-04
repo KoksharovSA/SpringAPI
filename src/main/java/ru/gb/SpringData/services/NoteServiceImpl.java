@@ -25,8 +25,8 @@ public class NoteServiceImpl implements INoteService {
     }
 
     @Override
-    public Note getNoteById(Long id) {
-        return repository.findById(id).orElseThrow(null);
+    public Optional<Note> getNoteById(Long id) {
+        return repository.findById(id);
     }
 
     @Override

@@ -45,7 +45,7 @@ public class NoteController {
         log.info("Run NoteController.getNoteById");
         Note note;
         try {
-            note = noteService.getNoteById(id);
+            note = noteService.getNoteById(id).get();
         } catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Note());
         }
@@ -72,11 +72,13 @@ public class NoteController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Note> updateNote(@PathVariable Long id, @RequestBody Note newNote){
         log.info("Run NoteController.updateNote");
-        Note note = noteService.updateNote(id, newNote);
-        if (note == null){
+        Note note;
+        try {
+            note = noteService.updateNote(id, newNote);
+        } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Note());
         }
-        return new ResponseEntity<>(, HttpStatus.OK);
+        return new ResponseEntity<>(note, HttpStatus.OK);
     }
 
     /**
@@ -86,6 +88,11 @@ public class NoteController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteNote(@PathVariable Long id){
         log.info("Run NoteController.deleteNote");
+        try {
+            noteService.getNoteById(id).get();
+        } catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
         noteService.deleteNote(id);
         return ResponseEntity.ok().build();
     }
